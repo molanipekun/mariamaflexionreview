@@ -29,8 +29,6 @@ export class ConversionComponent implements OnInit {
   }
 
   submit() {
-    console.log('Are we here', this.input, this.unit);
-    // debugger;
     this.teacherRequest.inputNumericalValue = this.input;
     this.teacherRequest.inputUnitOfMeasure = this.unit1;
     this.teacherRequest.studentResponse = this.response;
@@ -38,7 +36,6 @@ export class ConversionComponent implements OnInit {
     this.conversionService.isValid(this.teacherRequest).subscribe(res => {
       this.answer = res.response;
     });
-    console.log('Are we here 3333', this.teacherRequest);
   }
 
 }
