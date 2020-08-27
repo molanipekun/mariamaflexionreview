@@ -1,11 +1,11 @@
 // import { IUnit } from '../interfaces/conversion.interfaces';
 
 export const TEMPERATURE_TYPES = [
-    "kelvin", "celsius", "fahrenheit", "rankine"
+    'kelvin', 'celsius', 'fahrenheit', 'rankine'
 ];
 
 export const VOLUME_TYPES = [
-    "liters", "tablespoons", "cubic-inches", "cups", "cubic-feets", "gallons"
+    'liters', 'tablespoons', 'cubic-inches', 'cups', 'cubic-feets', 'gallons'
 ];
 
 // export const TEMPERATURE_MAP: IUnit[] = [
@@ -16,7 +16,7 @@ export const VOLUME_TYPES = [
 //     {
 //         unit: "celsius",
 //         symbol: "C"
-//     }, 
+//     },
 //     {
 //         unit: "fahrenheit",
 //         symbol: "F"
@@ -36,7 +36,7 @@ export const VOLUME_TYPES = [
 //     {
 //         unit: "tablespoons",
 //         symbol: "tsp"
-//     }, 
+//     },
 //     {
 //         unit: "cubic-inches",
 //         symbol: "in3"
@@ -58,4 +58,4 @@ export const VOLUME_TYPES = [
 export const ALL_UNIT_TYPES = [
     ...TEMPERATURE_TYPES,
     ...VOLUME_TYPES
-]
+];

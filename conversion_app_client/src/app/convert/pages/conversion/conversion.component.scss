@@ -13,4 +13,10 @@
 .medium-width {
     width: 200px;
     height: 50px;
+  div:nth-child(2){
+    text-align: center;
+    margin-top: 4px;
+    font-size: 1.2em;
+    font-weight: 500;
+  }
 }

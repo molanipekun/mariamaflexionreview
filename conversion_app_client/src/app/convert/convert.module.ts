@@ -6,6 +6,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import {MatSelectModule} from '@angular/material/select';
+import { FormsModule } from '@angular/forms';
+import { ConversionService } from './service/conversion.service';
 
 
 @NgModule({
@@ -14,9 +16,14 @@ import {MatSelectModule} from '@angular/material/select';
     CommonModule,
     ConvertRoutingModule,
     MatInputModule,
+    FormsModule,
     MatFormFieldModule,
     MatCardModule,
     MatSelectModule
+  ],
+  providers:[
+    ConversionService
   ]
+
 })
 export class ConvertModule { }
