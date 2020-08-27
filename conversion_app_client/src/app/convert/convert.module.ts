@@ -8,19 +8,21 @@ import { MatCardModule } from '@angular/material/card';
 import {MatSelectModule} from '@angular/material/select';
 import { FormsModule } from '@angular/forms';
 import { ConversionService } from './service/conversion.service';
+import {MatRadioModule} from "@angular/material/radio";
 
 
 @NgModule({
   declarations: [ ConversionComponent ],
-  imports: [
-    CommonModule,
-    ConvertRoutingModule,
-    MatInputModule,
-    FormsModule,
-    MatFormFieldModule,
-    MatCardModule,
-    MatSelectModule
-  ],
+    imports: [
+        CommonModule,
+        ConvertRoutingModule,
+        MatInputModule,
+        FormsModule,
+        MatFormFieldModule,
+        MatCardModule,
+        MatSelectModule,
+        MatRadioModule
+    ],
   providers:[
     ConversionService
   ]

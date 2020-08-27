@@ -55,7 +55,7 @@ export const VOLUME_TYPES = [
 //     }
 // ]
 
-export const ALL_UNIT_TYPES = [
-    ...TEMPERATURE_TYPES,
-    ...VOLUME_TYPES
-];
+export const ALL_UNIT_TYPES = {
+    temperature: [...TEMPERATURE_TYPES],
+    volume: [...VOLUME_TYPES]
+};
