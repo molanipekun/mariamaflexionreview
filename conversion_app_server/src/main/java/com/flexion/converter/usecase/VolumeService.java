@@ -6,6 +6,7 @@ import com.flexion.converter.domain.Temperatures;
 import com.flexion.converter.domain.Volumes;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import lombok.val;
 import org.springframework.stereotype.Service;
 
 import java.util.NoSuchElementException;
@@ -32,9 +33,9 @@ public class VolumeService {
         }
         //if (getVolumeFromString )
         try {
-            var result = getVolumeFromString.convert(teacherRequest.getInputNumericalValue(), targetVolume);
-            var authoritativeAnswer = temperatureService.roundToTenths(result);
-            var studentResponse = temperatureService.roundToTenths(Double.parseDouble(teacherRequest.getStudentResponse()));
+            val result = getVolumeFromString.convert(teacherRequest.getInputNumericalValue(), targetVolume);
+            val authoritativeAnswer = temperatureService.roundToTenths(result);
+            val studentResponse = temperatureService.roundToTenths(Double.parseDouble(teacherRequest.getStudentResponse()));
 
             log.info("Teacher's temperature result ==> " + authoritativeAnswer);
             log.info("Student temperature result ==> " + studentResponse);

@@ -4,6 +4,7 @@ import com.flexion.converter.domain.GenericResponseBody;
 import com.flexion.converter.domain.TeacherRequest;
 import com.flexion.converter.domain.Temperatures;
 import lombok.extern.slf4j.Slf4j;
+import lombok.val;
 import org.springframework.stereotype.Service;
 
 import java.util.NoSuchElementException;
@@ -28,9 +29,9 @@ public class TemperatureService {
         }
         //if (getTemp )
         try {
-            var result = getTemp.convert(teacherRequest.getInputNumericalValue(), targetTemp);
-            var authoritativeAnswer = roundToTenths(result);
-            var studentResponse = roundToTenths(Double.parseDouble(teacherRequest.getStudentResponse()));
+            val result = getTemp.convert(teacherRequest.getInputNumericalValue(), targetTemp);
+            val authoritativeAnswer = roundToTenths(result);
+            val studentResponse = roundToTenths(Double.parseDouble(teacherRequest.getStudentResponse()));
 
             log.info("Teacher's temperature result ==> " + authoritativeAnswer);
             log.info("Student temperature result ==> " + studentResponse);
