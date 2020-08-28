@@ -20,16 +20,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'joy-flexion-client'`, () => {
+  it(`should have as title 'mariama-flexion-client'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('joy-flexion-client');
+    expect(app.title).toEqual('mariama-flexion-client');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('joy-flexion-client app is running!');
+    expect(compiled.querySelector('.content span').textContent).toContain('mariama-flexion-client app is running!');
   });
 });
