@@ -30,42 +30,42 @@ jobs:
       - uses: actions/checkout@v1
         
       - name: Pre-build configuration
-          run: |
-            curl -sS -o aws-iam-authenticator https://amazon-eks.s3-us-west-2.amazonaws.com/1.10.3/2018-07-26/bin/linux/amd64/aws-iam-authenticator
-            curl -sS -o kubectl https://amazon-eks.s3-us-west-2.amazonaws.com/1.14.6/2019-08-22/bin/linux/amd64/kubectl
-            chmod +x ./kubectl ./aws-iam-authenticator
-            export PATH=$PWD/:$PATH
-            apt-get update && apt-get -y install jq python3-pip python3-dev && pip3 install --upgrade awscli
-            $(aws ecr get-login --no-include-email)
-            export KUBECONFIG=$HOME/.kube/config
+        run: |
+          curl -sS -o aws-iam-authenticator https://amazon-eks.s3-us-west-2.amazonaws.com/1.10.3/2018-07-26/bin/linux/amd64/aws-iam-authenticator
+          curl -sS -o kubectl https://amazon-eks.s3-us-west-2.amazonaws.com/1.14.6/2019-08-22/bin/linux/amd64/kubectl
+          chmod +x ./kubectl ./aws-iam-authenticator
+          export PATH=$PWD/:$PATH
+          apt-get update && apt-get -y install jq python3-pip python3-dev && pip3 install --upgrade awscli
+          $(aws ecr get-login --no-include-email)
+          export KUBECONFIG=$HOME/.kube/config
 
       - name: Set Custom ENV VARIABLES
-          run: |
-            export SERVER_REPOSITORY_URI="${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/${SERVER_CONTAINER_IMAGE}"
-            export CLIENT_REPOSITORY_URI="${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/${CLIENT_CONTAINER_IMAGE}"
+        run: |
+          export SERVER_REPOSITORY_URI="${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/${SERVER_CONTAINER_IMAGE}"
+          export CLIENT_REPOSITORY_URI="${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/${CLIENT_CONTAINER_IMAGE}"
 
       - name: Setup ECR
-          run: |
-            # Login to AWS ECR
-            $( aws ecr get-login --no-include-email )
+        run: |
+          # Login to AWS ECR
+          $( aws ecr get-login --no-include-email )
 
       - name: Build and tag client image
-          run: |
-            # Build and tag the image
-            docker build \
-                -t $CLIENT_REPOSITORY_URI ./app_server
+        run: |
+          # Build and tag the image
+          docker build \
+              -t $CLIENT_REPOSITORY_URI ./app_server
 
       - name: Build and tag server image
-          run: |
-            # Build and tag the image
-            docker build \
-                -t $SERVER_REPOSITORY_URI ./conversion_app_client
+        run: |
+          # Build and tag the image
+          docker build \
+              -t $SERVER_REPOSITORY_URI ./conversion_app_client
 
       - name: Push client
           if: github.ref == 'refs/heads/master'
-          run: |
-            # Push image to AWS ECR
-            docker push $CLIENT_REPOSITORY_URI
+        run: |
+          # Push image to AWS ECR
+          docker push $CLIENT_REPOSITORY_URI
 
       - name: Push server
           if: github.ref == 'refs/heads/master'
@@ -74,11 +74,11 @@ jobs:
             docker push $SERVER_REPOSITORY_URI
 
       - name: Setup EKS
-          run: |
-            sed -i 's@CLIENT_CONTAINER_IMAGE@'"$CLIENT_REPOSITORY_URI"'@' k8s/client.yml
-            sed -i 's@SERVER_CONTAINER_IMAGE@'"$SERVER_REPOSITORY_URI"'@' k8s/server.yml
-            aws eks update-kubeconfig --name $EKS_CLUSTER_NAME
-            kubectl apply -f k8s/deployment.yml
+        run: |
+          sed -i 's@CLIENT_CONTAINER_IMAGE@'"$CLIENT_REPOSITORY_URI"'@' k8s/client.yml
+          sed -i 's@SERVER_CONTAINER_IMAGE@'"$SERVER_REPOSITORY_URI"'@' k8s/server.yml
+          aws eks update-kubeconfig --name $EKS_CLUSTER_NAME
+          kubectl apply -f k8s/deployment.yml
 
       - name: Deployed
           if: github.event_name == 'push'
