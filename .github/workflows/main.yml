@@ -68,10 +68,10 @@ jobs:
           docker push $CLIENT_REPOSITORY_URI
 
       - name: Push server
-          if: github.ref == 'refs/heads/master'
-          run: |
-            # Push image to AWS ECR
-            docker push $SERVER_REPOSITORY_URI
+        if: github.ref == 'refs/heads/master'
+        run: |
+          # Push image to AWS ECR
+          docker push $SERVER_REPOSITORY_URI
 
       - name: Setup EKS
         run: |
