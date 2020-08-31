@@ -8,8 +8,6 @@ on:
   push:
     branches: [ master ]
 
-name: Build and Push to ECR
-
     # https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html
 env:
     AWS_DEFAULT_REGION: us-east-1
