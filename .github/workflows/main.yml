@@ -50,12 +50,12 @@ jobs:
       - name: Build and tag client image
         run: |
           # Build and tag the image
-          docker build -t ${CLIENT_REPOSITORY_URI} ./conversion_app_client
+          docker build -t ${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/${SERVER_CONTAINER_IMAGE} ./conversion_app_client
 
       - name: Build and tag server image
         run: |
           # Build and tag the image
-          docker build -t ${SERVER_REPOSITORY_URI} ./conversion_app_server
+          docker build -t ${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/${CLIENT_CONTAINER_IMAGE} ./conversion_app_server
 
       - name: Push client
         if: github.ref == 'refs/heads/master'
