@@ -50,14 +50,14 @@ jobs:
       - name: Build and tag client image
         run: |
           # Build and tag the image
-          docker build \
-              -t $CLIENT_REPOSITORY_URI ./conversion_app_server
+          echo $CLIENT_REPOSITORY_URI
+          docker build -t $CLIENT_REPOSITORY_URI ./conversion_app_server
 
       - name: Build and tag server image
         run: |
           # Build and tag the image
-          docker build \
-              -t $SERVER_REPOSITORY_URI ./conversion_app_client
+          echo $SERVER_REPOSITORY_URI
+          docker build -t $SERVER_REPOSITORY_URI ./conversion_app_client
 
       - name: Push client
         if: github.ref == 'refs/heads/master'
