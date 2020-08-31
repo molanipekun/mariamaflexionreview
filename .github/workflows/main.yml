@@ -41,7 +41,6 @@ jobs:
         run: |
           export SERVER_REPOSITORY_URI="${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/${SERVER_CONTAINER_IMAGE}"
           export CLIENT_REPOSITORY_URI="${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/${CLIENT_CONTAINER_IMAGE}"
-          echo $CLIENT_REPOSITORY_URI
 
       - name: Setup ECR
         run: |
@@ -51,14 +50,12 @@ jobs:
       - name: Build and tag client image
         run: |
           # Build and tag the image
-          echo $CLIENT_REPOSITORY_URI
           docker build -t $CLIENT_REPOSITORY_URI ./conversion_app_server
 
       - name: Build and tag server image
         run: |
           # Build and tag the image
-          echo $SERVER_REPOSITORY_URI
-          docker build -t $SERVER_REPOSITORY_URI ./conversion_app_client
+          docker build -t 968906387115.dkr.ecr.us-east-1.amazonaws.com/flexionunitconverterserver:latest ./conversion_app_client
 
       - name: Push client
         if: github.ref == 'refs/heads/master'
