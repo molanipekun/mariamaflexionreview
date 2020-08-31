@@ -11,7 +11,7 @@ Live URL: [http://aa21b6b4eb6e44ba6b2b44daf89854de-1323206774.us-east-1.elb.amaz
 
 # Frontend
 From root folder  :
-* `cd conversion-app-client`
+* `cd conversion_app_client`
 * `npm i`
 ### run tests
 * For unit test : `npm run test`
@@ -24,7 +24,7 @@ Go to `http://localhost:4200`
 
 # Backend
 From root folder:
-* `cd conversion-app-server`
+* `cd conversion_app_server`
 * `mvn install
 ### run tests
 * junit tests
