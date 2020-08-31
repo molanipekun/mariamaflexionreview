@@ -30,7 +30,7 @@ From root folder:
 * junit tests
 
 Then,
-Go to `http://localhost:8056`
+Go to `http://localhost:8056/unit-conversion`
 
 
 ## To improve on the app
