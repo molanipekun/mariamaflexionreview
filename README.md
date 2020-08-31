@@ -2,13 +2,6 @@
 
 Live URL: [http://aa21b6b4eb6e44ba6b2b44daf89854de-1323206774.us-east-1.elb.amazonaws.com/convert "Flexion Coding Challenge")
 
-### To run in production mode
-* install docker-compose on your machine
-* run `docker-compose up` in root directory
-
-
-### OR
-
 # Frontend
 From root folder  :
 * `cd conversion_app_client`
@@ -26,6 +19,9 @@ Go to `http://localhost:4200`
 From root folder:
 * `cd conversion_app_server`
 * `mvn install
+* Set your SDK to Java 8
+* Run the Application
+
 ### run tests
 * junit tests
 
@@ -39,5 +35,6 @@ Go to `http://localhost:8056/unit-conversion`
 * Maven and Spring Boot Documentation
 * Test command line interface
 * Enable an overall http interceptor in angular app for proper network handling
+* Add a storage method via a configuration
 
 
