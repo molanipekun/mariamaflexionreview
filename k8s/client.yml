@@ -7,7 +7,7 @@
         type: LoadBalancer
         ports:
             - port: 80
-              targetPort: 4200
+              targetPort: 80
         selector:
             app: converter-client
 ---
@@ -34,4 +34,4 @@
                     - name: converter-server
                       image: CLIENT_CONTAINER_IMAGE
                       ports:
-                          - containerPort: 4200
+                          - containerPort: 80
