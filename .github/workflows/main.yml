@@ -23,12 +23,12 @@ env:
     
 
 jobs:
-    build-and-push-app:
+    build:
     name: Build and deploy
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
-        uses: actions/checkout@master
+        uses: actions/checkout@v1
     
     - name: Pre-build configuration
         run: |
