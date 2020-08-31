@@ -27,7 +27,7 @@ From root folder:
 * junit tests
 
 Then,
-Go to `http://localhost:4200`
+Go to `http://localhost:8056`
 
 OR 
 
