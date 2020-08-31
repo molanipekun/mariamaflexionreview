@@ -6,7 +6,7 @@ import {TeacherRequest} from '../pages/models/teacher-request';
 
 @Injectable()
 export class ConversionService {
-  private baseUrl = 'http://172.20.236.218/unit-conversion/convert/';
+  private baseUrl = `http://a1e4abeaa5b1f413d94035dbc8ec5f74-1129427492.us-east-1.elb.amazonaws.com/unit-conversion/convert/`;
 
   constructor(private http: HttpClient) {}
 
