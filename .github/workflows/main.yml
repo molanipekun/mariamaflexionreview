@@ -62,7 +62,7 @@ jobs:
               -t $SERVER_REPOSITORY_URI ./conversion_app_client
 
       - name: Push client
-          if: github.ref == 'refs/heads/master'
+        if: github.ref == 'refs/heads/master'
         run: |
           # Push image to AWS ECR
           docker push $CLIENT_REPOSITORY_URI
