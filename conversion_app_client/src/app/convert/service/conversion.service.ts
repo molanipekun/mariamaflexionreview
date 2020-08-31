@@ -6,8 +6,7 @@ import {TeacherRequest} from '../pages/models/teacher-request';
 
 @Injectable()
 export class ConversionService {
-  // private baseUrl = !isDevMode() ? "http://demoebsga-env.eba-b28bc2gd.us-east-1.elasticbeanstalk.com/api/v1/" : "http://localhost:8056/unit-conversion";
-  private baseUrl = 'http://localhost:8056/unit-conversion/convert/';
+  private baseUrl = 'http://172.20.236.218/unit-conversion/convert/';
 
   constructor(private http: HttpClient) {}
 

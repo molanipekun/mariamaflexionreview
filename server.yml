@@ -1,0 +1,37 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: converter-server
+spec:
+    type: ClusterIP
+    ports:
+        - port: 80
+          targetPort: 8056
+    selector:
+        app: converter-server
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: converter-server
+spec:
+    replicas: 3
+    strategy:
+        type: RollingUpdate
+        rollingUpdate:
+            maxUnavailable: 1
+            maxSurge: 1
+    selector:
+        matchLabels:
+            app: converter-server
+    template:
+        metadata:
+            labels:
+                app: converter-server
+        spec:
+            containers:
+                - name: converter-server
+                  image: SERVER_CONTAINER_IMAGE
+                  ports:
+                      - containerPort: 8056

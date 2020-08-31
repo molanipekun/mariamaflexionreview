@@ -1,0 +1,37 @@
+---
+    apiVersion: v1
+    kind: Service
+    metadata:
+        name: converter-client
+    spec:
+        type: LoadBalancer
+        ports:
+            - port: 80
+              targetPort: 4200
+        selector:
+            app: converter-client
+---
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+        name: converter-client
+    spec:
+        replicas: 3
+        strategy:
+            type: RollingUpdate
+            rollingUpdate:
+                maxUnavailable: 1
+                maxSurge: 1
+        selector:
+            matchLabels:
+                app: converter-client
+        template:
+            metadata:
+                labels:
+                    app: converter-client
+            spec:
+                containers:
+                    - name: converter-server
+                      image: CLIENT_CONTAINER_IMAGE
+                      ports:
+                          - containerPort: 4200
