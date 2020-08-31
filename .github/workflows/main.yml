@@ -50,12 +50,12 @@ jobs:
       - name: Build and tag client image
         run: |
           # Build and tag the image
-          docker build -t $CLIENT_REPOSITORY_URI ./conversion_app_server
+          docker build -t $CLIENT_REPOSITORY_URI --file ./conversion_app_client/Dockerfile
 
       - name: Build and tag server image
         run: |
           # Build and tag the image
-          docker build -t 968906387115.dkr.ecr.us-east-1.amazonaws.com/flexionunitconverterserver:latest ./conversion_app_client
+          docker build -t $SERVER_REPOSITORY_URI --file ./conversion_app_server/Dockerfile
 
       - name: Push client
         if: github.ref == 'refs/heads/master'
