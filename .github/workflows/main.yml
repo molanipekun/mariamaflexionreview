@@ -16,8 +16,8 @@ env:
     EKS_CLUSTER_NAME: ${{ secrets.EKS_CLUSTER_NAME }}
     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-    CLIENT_CONTAINER_IMAGE: flexionunitconverterclient:${{ github.sha }}
-    SERVER_CONTAINER_IMAGE: flexionunitconverterserver:${{ github.sha }}
+    CLIENT_CONTAINER_IMAGE: flexionunitconverterclient:latest
+    SERVER_CONTAINER_IMAGE: flexionunitconverterserver:latest
     
 
 jobs:
@@ -74,6 +74,7 @@ jobs:
           sed -i 's@CLIENT_CONTAINER_IMAGE@'"${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/${CLIENT_CONTAINER_IMAGE}"'@' k8s/client.yml
           sed -i 's@SERVER_CONTAINER_IMAGE@'"${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/${SERVER_CONTAINER_IMAGE}"'@' k8s/server.yml
           aws eks update-kubeconfig --name $EKS_CLUSTER_NAME
+          kubectl delete deployment converter-client converter-server
           kubectl apply -f k8s
 
       - name: Deployed
