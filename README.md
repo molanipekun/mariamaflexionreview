@@ -17,6 +17,7 @@ From root folder  :
 * For unit test : `npm run test`
 ### run app 
 * To run application : `npm run start`
+
 Then,
 Go to `http://localhost:4200`
 
@@ -34,7 +35,6 @@ Go to `http://localhost:8056`
 
 ## To improve on the app
 
-* Using NgRx for state management 
 * Documentation of angular application
 * Maven and Spring Boot Documentation
 * Test command line interface
