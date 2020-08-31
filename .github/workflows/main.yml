@@ -50,24 +50,24 @@ jobs:
       - name: Build and tag client image
         run: |
           # Build and tag the image
-          docker build -t 968906387115.dkr.ecr.us-east-1.amazonaws.com/flexionunitconverterclient:latest ./conversion_app_client
+          docker build -t ${CLIENT_REPOSITORY_URI} ./conversion_app_client
 
       - name: Build and tag server image
         run: |
           # Build and tag the image
-          docker build -t 968906387115.dkr.ecr.us-east-1.amazonaws.com/flexionunitconverterserver:latest ./conversion_app_server
+          docker build -t ${SERVER_REPOSITORY_URI} ./conversion_app_server
 
       - name: Push client
         if: github.ref == 'refs/heads/master'
         run: |
           # Push image to AWS ECR
-          docker push $CLIENT_REPOSITORY_URI
+          docker push ${CLIENT_REPOSITORY_URI}
 
       - name: Push server
         if: github.ref == 'refs/heads/master'
         run: |
           # Push image to AWS ECR
-          docker push $SERVER_REPOSITORY_URI
+          docker push ${SERVER_REPOSITORY_URI}
 
       - name: Setup EKS
         run: |
