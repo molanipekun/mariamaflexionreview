@@ -35,8 +35,8 @@ Go to `http://localhost:8056`
 ## To improve on the app
 
 * Using NgRx for state management 
-* Documentation of the nest js api
 * Documentation of angular application
+* Maven and Spring Boot Documentation
 * Test command line interface
 * Enable an overall http interceptor in angular app for proper network handling
 
