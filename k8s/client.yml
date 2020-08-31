@@ -31,7 +31,7 @@
                     app: converter-client
             spec:
                 containers:
-                    - name: converter-server
+                    - name: converter-client
                       image: CLIENT_CONTAINER_IMAGE
                       ports:
                           - containerPort: 80
