@@ -51,7 +51,7 @@ jobs:
         run: |
           # Build and tag the image
           docker build \
-              -t $CLIENT_REPOSITORY_URI ./app_server
+              -t $CLIENT_REPOSITORY_URI ./conversion_app_server
 
       - name: Build and tag server image
         run: |
