@@ -41,6 +41,7 @@ jobs:
         run: |
           export SERVER_REPOSITORY_URI="${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/${SERVER_CONTAINER_IMAGE}"
           export CLIENT_REPOSITORY_URI="${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/${CLIENT_CONTAINER_IMAGE}"
+          echo $CLIENT_REPOSITORY_URI
 
       - name: Setup ECR
         run: |
