@@ -17,6 +17,8 @@ From root folder  :
 * For unit test : `npm run test`
 ### run app 
 * To run application : `npm run start`
+Then,
+Go to `http://localhost:4200`
 
 
 # Backend
@@ -28,14 +30,6 @@ From root folder:
 
 Then,
 Go to `http://localhost:8056`
-
-OR 
-
-# Use Command Line Interface
-### run command line interface;
-From root folder:
-* `cd conversion-app-server`
-*  mvn install
 
 
 ## To improve on the app
