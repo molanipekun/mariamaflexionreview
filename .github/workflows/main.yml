@@ -1,0 +1,81 @@
+# This is a basic workflow to help you get started with Actions
+
+name: FlexionCodeReviewCI
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
+on:
+  push:
+    branches: [ master ]
+
+    # https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html
+env:
+    AWS_DEFAULT_REGION: us-east-1
+    AWS_DEFAULT_OUTPUT: json
+    AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
+    EKS_CLUSTER_NAME: ${{ secrets.EKS_CLUSTER_NAME }}
+    AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+    AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    CLIENT_CONTAINER_IMAGE: flexionunitconverterclient:${{ github.sha }}
+    SERVER_CONTAINER_IMAGE: flexionunitconverterserver:${{ github.sha }}
+    
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v1
+        
+      - name: Pre-build configuration
+        run: |
+          curl -sS -o aws-iam-authenticator https://amazon-eks.s3-us-west-2.amazonaws.com/1.10.3/2018-07-26/bin/linux/amd64/aws-iam-authenticator
+          curl -sS -o kubectl https://amazon-eks.s3-us-west-2.amazonaws.com/1.14.6/2019-08-22/bin/linux/amd64/kubectl
+          chmod +x ./kubectl ./aws-iam-authenticator
+          export PATH=$PWD/:$PATH
+          apt-get update && apt-get -y install jq python3-pip python3-dev && pip3 install --upgrade awscli
+          $(aws ecr get-login --no-include-email)
+          export KUBECONFIG=$HOME/.kube/config
+
+      - name: Set Custom ENV VARIABLES
+        run: |
+          export SERVER_REPOSITORY_URI="${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/${SERVER_CONTAINER_IMAGE}"
+          export CLIENT_REPOSITORY_URI="${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/${CLIENT_CONTAINER_IMAGE}"
+
+      - name: Setup ECR
+        run: |
+          # Login to AWS ECR
+          $( aws ecr get-login --no-include-email )
+
+      - name: Build and tag client image
+        run: |
+          # Build and tag the image
+          docker build -t ${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/${CLIENT_CONTAINER_IMAGE} ./conversion_app_client
+
+      - name: Build and tag server image
+        run: |
+          # Build and tag the image
+          docker build -t ${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/${SERVER_CONTAINER_IMAGE} ./conversion_app_server
+
+      - name: Push client
+        if: github.ref == 'refs/heads/master'
+        run: |
+          # Push image to AWS ECR
+          docker push ${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/${CLIENT_CONTAINER_IMAGE}
+
+      - name: Push server
+        if: github.ref == 'refs/heads/master'
+        run: |
+          # Push image to AWS ECR
+          docker push ${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/${SERVER_CONTAINER_IMAGE}
+
+      - name: Setup EKS
+        run: |
+          sed -i 's@CLIENT_CONTAINER_IMAGE@'"${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/${CLIENT_CONTAINER_IMAGE}"'@' k8s/client.yml
+          sed -i 's@SERVER_CONTAINER_IMAGE@'"${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/${SERVER_CONTAINER_IMAGE}"'@' k8s/server.yml
+          aws eks update-kubeconfig --name $EKS_CLUSTER_NAME
+          kubectl apply -f k8s
+
+      - name: Deployed
+        if: github.event_name == 'push'
+        run: echo App deployed
