@@ -50,29 +50,29 @@ jobs:
       - name: Build and tag client image
         run: |
           # Build and tag the image
-          docker build -t ${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/${SERVER_CONTAINER_IMAGE} ./conversion_app_client
+          docker build -t ${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/${CLIENT_CONTAINER_IMAGE} ./conversion_app_client
 
       - name: Build and tag server image
         run: |
           # Build and tag the image
-          docker build -t ${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/${CLIENT_CONTAINER_IMAGE} ./conversion_app_server
+          docker build -t ${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/${SERVER_CONTAINER_IMAGE} ./conversion_app_server
 
       - name: Push client
         if: github.ref == 'refs/heads/master'
         run: |
           # Push image to AWS ECR
-          docker push ${CLIENT_REPOSITORY_URI}
+          docker push ${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/${CLIENT_CONTAINER_IMAGE}
 
       - name: Push server
         if: github.ref == 'refs/heads/master'
         run: |
           # Push image to AWS ECR
-          docker push ${SERVER_REPOSITORY_URI}
+          docker push ${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/${SERVER_CONTAINER_IMAGE}
 
       - name: Setup EKS
         run: |
-          sed -i 's@CLIENT_CONTAINER_IMAGE@'"$CLIENT_REPOSITORY_URI"'@' k8s/client.yml
-          sed -i 's@SERVER_CONTAINER_IMAGE@'"$SERVER_REPOSITORY_URI"'@' k8s/server.yml
+          sed -i 's@CLIENT_CONTAINER_IMAGE@'"${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/${CLIENT_CONTAINER_IMAGE}"'@' k8s/client.yml
+          sed -i 's@SERVER_CONTAINER_IMAGE@'"${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/${SERVER_CONTAINER_IMAGE}"'@' k8s/server.yml
           aws eks update-kubeconfig --name $EKS_CLUSTER_NAME
           kubectl apply -f k8s/deployment.yml
 
