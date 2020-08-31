@@ -15,7 +15,7 @@
     <mat-form-field appearance="fill">
       <mat-label>From</mat-label>
       <mat-select [(ngModel)]="unit1">
-        <mat-option *ngFor="let unit of units[measurement]" [value]="unit1">
+        <mat-option *ngFor="let unit1 of units[measurement]" [value]="unit1">
           {{unit1}}
         </mat-option>
       </mat-select>
@@ -25,7 +25,7 @@
     <mat-form-field appearance="fill">
       <mat-label>To</mat-label>
       <mat-select [(ngModel)]="unit">
-        <mat-option *ngFor="let unit1 of units[measurement]" [value]="unit">
+        <mat-option *ngFor="let unit of units[measurement]" [value]="unit">
           {{unit}}
         </mat-option>
       </mat-select>

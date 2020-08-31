@@ -22,7 +22,6 @@ public class UnitConversionController {
 
     @PostMapping("/convert/temperature")
     public ResponseEntity<GenericResponseBody> temperatureWorksheet(@Valid @RequestBody TeacherRequest teacherRequest){
-        System.out.println("The data ==> "+ teacherRequest.toString());
         return new ResponseEntity<>(temperatureService.effectTemperatureConversion(teacherRequest) , HttpStatus.CREATED);
     }
     @PostMapping("/convert/volume")
