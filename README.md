@@ -1,6 +1,6 @@
 # Mariama Flexion Review
 
-Live URL: [http://aa21b6b4eb6e44ba6b2b44daf89854de-1323206774.us-east-1.elb.amazonaws.com/convert "Flexion Coding Challenge")
+Live URL: [http://aa21b6b4eb6e44ba6b2b44daf89854de-1323206774.us-east-1.elb.amazonaws.com/convert "MariamaFlexionClient")
 
 # Frontend
 From root folder  :
