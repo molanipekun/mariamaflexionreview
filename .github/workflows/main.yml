@@ -74,7 +74,7 @@ jobs:
           sed -i 's@CLIENT_CONTAINER_IMAGE@'"${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/${CLIENT_CONTAINER_IMAGE}"'@' k8s/client.yml
           sed -i 's@SERVER_CONTAINER_IMAGE@'"${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/${SERVER_CONTAINER_IMAGE}"'@' k8s/server.yml
           aws eks update-kubeconfig --name $EKS_CLUSTER_NAME
-          kubectl apply -f k8s/deployment.yml
+          kubectl apply -f k8s
 
       - name: Deployed
         if: github.event_name == 'push'
